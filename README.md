@@ -45,7 +45,7 @@ cd gero-rest-api
 npm init -y
 ```
 
-Then install ExpressJs
+Then install the libraries
 
 ```
 npm install express nodemon dotenv babel-cli
@@ -155,7 +155,7 @@ cd routers
 touch userRoutes.js
 ```
 
-Then paste the next code in the userRoutes.js file
+Then paste the code below in the userRoutes.js file
 
 ```
 // routes/userRoutes.js
@@ -176,14 +176,13 @@ router.get('/', async (req, res) => {
 export default router;
 ```
 
-In the package.json, update the value for the propierte scripts start
+In the package.json, update the value for the propierte scripts:start
 
-for 
 ``` 
 "start": "nodemon --watch server --exec babel-node index.js"
 ```
 
-Add the type module propiertie in the package.json
+Add the propiertie ```type:module``` in the package.json
 
 ```
 "type": "module",
