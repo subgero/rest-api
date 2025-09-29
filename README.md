@@ -1,4 +1,4 @@
-# How to create an NodeJs Rest Api with ExpressJS
+# How to create a NodeJs Rest Api with ExpressJS
 
 ## Before to start we need to install NVM (Node Version Manager)
 
