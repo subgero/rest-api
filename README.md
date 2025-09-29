@@ -63,26 +63,22 @@ Create the index.js file and paste the content below on it
 
 ```
 // index.js
-import express  from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const port = process.env.PORT || 5000;
-
-import userRoutes from './routers/userRouters.js';
-
+const express = require('express');
 const app = express();
+const port = 3000;
 
-app.use('/users', userRoutes);
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
-app.listen(port, (error) => {
-	if(!error)
-		console.log("Server is Successfully Running, and App is listening on port " + port)
-	else
-		console.log("Error occurred, server can't start", error);
-	}
-);
+// Define a simple GET endpoint
+app.get('/', (req, res) => {
+    res.json({ message: 'Hello from the API!' });
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
 ```
 
 In the package.json file, add the next propertie in the scripts section:
