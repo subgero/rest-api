@@ -63,7 +63,7 @@ Create the index.js file and paste the content below on it
 
 ```
 // index.js
-const express = require('express');
+import express  from 'express';
 const app = express();
 const port = 3000;
 
