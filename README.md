@@ -152,7 +152,7 @@ Create a folder called routes and inside create a file called userRoutes.js
 ```
 mkdir routers
 cd routers
-touch userRoutes.js
+touch userRouters.js
 ```
 
 Then paste the code below in the userRoutes.js file
