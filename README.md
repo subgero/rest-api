@@ -1,3 +1,6 @@
+
+![Static Data](images/code.png)
+
 # How to create a NodeJs Rest Api with ExpressJS
 
 ## Before to start we need to install NVM (Node Version Manager)
@@ -81,7 +84,7 @@ app.listen(port, () => {
 In the package.json file, add the next propertie in the scripts section:
 
 ```
-"start": "node index.js"    
+"start": "node index.js"
 ```
 
 Now you can run the next command from your terminal
@@ -128,18 +131,22 @@ Replace the content of the index.js file with the code below:
 
 ``` 
 // index.js     
-import express  from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-import userRoutes from './routers/userRouters.js';
+import userRouters from './routers/userRouters.js';
 
 const app = express();
 
-app.use('/users', userRoutes);
+app.use('/users', userRouters);
+
+app.get('/', (req, res) => {
+    res.send('API is running....');
+});
 
 app.listen(port, (error) => {
 	if(!error)
