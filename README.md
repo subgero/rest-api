@@ -157,7 +157,7 @@ app.listen(port, (error) => {
 );
 ```
 
-Create a folder called routes and inside create a file called userRoutes.js
+Create a directory called routers and inside create a file called userRouters.js
 
 ```
 mkdir routers
@@ -192,7 +192,7 @@ In the package.json, update the value for the propierte scripts:start
 "start": "nodemon --watch server --exec babel-node index.js"
 ```
 
-Add the propiertie ```type:module``` in the package.json
+Add the propierty ```type:module``` in the package.json
 
 ```
 "type": "module",
@@ -205,4 +205,149 @@ npm run start
 ``` 
 
 ![Static Data](images/static-data.png)
+
+
+## Dockerize your application
+
+
+Create a Docker file
+
+```
+touch Dockerfile
+```
+
+
+Put the content below on it
+
+
+```
+FROM node:16
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --save
+
+COPY . .
+
+ENTRYPOINT ["node", "index.js", "-h", "0.0.0.0"]
+
+EXPOSE $PORT
+
+CMD [ "node", "index.js"]
+```
+
+## Build the image
+
+Run the command below to build the image, replace restapi for the name of your image
+
+```
+docker build -t restapi .
+```
+
+Run the command to list the docker image in your local environment
+
+```
+docker images
+```
+
+![Docker Images](images/docker-images.png)
+
+
+## Use docker compose tu run your application in the background
+
+Create a docker-compose file
+
+```
+touch docker-compose.yml
+```
+
+Put the content below on it
+
+```
+version: "3.3"
+services:
+  restapi:
+    image: $IMAGE
+    container_name: $IMAGE
+    ports:
+      - $PORT:$PORT
+    command: 'nodemon --watch server --exec babel-node index.js'
+    restart: unless-stopped
+```
+
+Update your .env file with the name of the image
+
+```
+IMAGE=restapi
+```
+
+## Start your application 
+
+```
+docker compose up -d
+```
+
+Run the command below to list the running containers
+
+
+```
+docker ps
+```
+
+
+![Docker Running Containers](images/docker-running-containers.png)
+
+## Upload your image to AWS
+
+### Create a ECR repository
+
+Login in your AWS Account
+
+Go to the ECR Service
+
+https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1
+
+Click on Create Repository
+
+![Create Repository Button](images/create-repository-button.png)
+
+Type the name for the repository
+
+![Type a name for your repository](images/repository-name.png)
+
+Click on Create
+
+Select the repository created
+
+Click on View push commands
+
+![View push commands](images/view-push-commands-button.png)
+
+First, you must authenticate 
+
+![Example](images/commands-example.png)
+
+
+```
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 042890182754.dkr.ecr.us-east-1.amazonaws.com
+```
+
+Next, you have to build your image ( this was done before )
+
+```
+docker build -t restapi .
+```
+
+You should tag your image, in this case Im gonna use the latest tag
+```
+docker tag restapi:latest 042890182754.dkr.ecr.us-east-1.amazonaws.com/restapi:latest
+```
+
+And finally, you must push your image to the container
+
+```
+docker push 042890182754.dkr.ecr.us-east-1.amazonaws.com/restapi:latest
+```
 
