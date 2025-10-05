@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  restapi:
+    image: $IMAGE:$VERSION
+    container_name: $IMAGE
+    ports:
+      - $PORT:$PORT
+    command: 'nodemon --watch server --exec babel-node index.js'
+    restart: unless-stopped
