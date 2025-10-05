@@ -7,7 +7,7 @@
 
 nvm allows you to quickly install and use different versions of node via the command line.
 
-To install or update NVM, run the next command
+To install or update NVM, run the command below
 
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
