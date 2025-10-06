@@ -1,7 +1,7 @@
 
 ![Static Data](images/code.png)
 
-# How to create a NodeJs Rest Api with ExpressJS
+# How to create a Rest Api with NodeJs and ExpressJs
 
 ## Before to start we need to install NVM (Node Version Manager)
 
