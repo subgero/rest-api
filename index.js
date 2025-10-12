@@ -7,10 +7,12 @@ dotenv.config();
 const port = process.env.PORT || 5000;
 
 import userRouters from './routers/userRouters.js';
+import newsRouters from './routers/newsrouters.js';
 
 const app = express();
 
 app.use('/users', userRouters);
+app.use('/news', newsRouters);
 
 app.get('/', (req, res) => {
     res.send('API is running....');

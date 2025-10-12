@@ -351,3 +351,85 @@ And finally, you must push your image to the container
 docker push 042890182754.dkr.ecr.us-east-1.amazonaws.com/restapi:latest
 ```
 
+## Get Items from DynamoDb
+
+Install the dynamodb library, run the command below.
+
+```
+npm i @aws-sdk/client-dynamodb
+```
+
+In the routes directory, create a new file news.js
+
+
+Put the content below in the new file
+
+```
+import express from "express";
+import dotenv from 'dotenv';
+
+import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
+
+dotenv.config();
+
+const region = process.env.REGION;
+let TableName = process.env.TABLENAME;
+
+let dbb = new DynamoDBClient({ region });
+
+const router = express.Router();
+
+router.get('/', async (req, res) => {
+
+    const input = {
+        TableName: TableName
+    }        
+   
+    const command = new ScanCommand(input);
+
+    try {
+        const response = await dbb.send(command);
+        res.send(response);       
+    } catch (error) {
+        console.log("Error getting items", error);
+        res.send(error);
+    }
+
+
+});
+
+export default router;
+```
+
+Update the index file in order to import the new file.
+
+```
+import newsRouters from './routers/newsrouters.js';
+```
+
+Update your app with a new path or endpoint:
+
+```
+app.use('/news', newsRouters);
+```
+
+Update the .env file with the environment variables below, replace the current values with yours:
+
+```
+TABLENAME=mytable
+BUCKETS3='my-bucket'
+REGION='my-region'
+```
+
+```
+npm run start
+```
+
+Documentation:
+
+Scan Command for AWS SDK for JavaScript V3 
+https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/command/ScanCommand/
+
+
+Images Stock for free 
+https://www.pexels.com/
