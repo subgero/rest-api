@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 
-import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, ScanCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
 
 dotenv.config();
 
@@ -30,5 +30,33 @@ router.get('/', async (req, res) => {
 
 
 });
+
+router.get('/:id', async (req, res) => {
+
+    let id = req.params.id;
+
+    const input = {
+        TableName: TableName,
+        KeyConditionExpression: "id = :id",
+        ExpressionAttributeValues: {
+            ":id": {
+                S: id
+            }
+        }
+    }        
+   
+    const command = new QueryCommand(input);
+
+    try {
+        const response = await dbb.send(command);
+        res.send(response);       
+    } catch (error) {
+        console.log("Error getting item", error);
+        res.send(error);
+    }
+
+
+});
+
 
 export default router;
