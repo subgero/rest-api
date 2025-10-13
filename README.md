@@ -430,6 +430,32 @@ Documentation:
 Scan Command for AWS SDK for JavaScript V3 
 https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/command/ScanCommand/
 
+Batch Write Items on DynamoDB
+https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html
+
+How to bulk insert to dynamodb table
+```
+aws dynamodb batch-write-item --request-items file://bulk.json
+```
+
 
 Images Stock for free 
 https://www.pexels.com/
+
+
+
+Install Terminator
+```
+sudo apt install terminator
+```
+
+https://gnome-terminator.org/
+
+AWS Services
+
+S3
+https://docs.aws.amazon.com/AmazonS3/latest/API/Type_API_Reference.html
+
+DynamoDB
+https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html
+
